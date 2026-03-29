@@ -1,6 +1,9 @@
 import express from 'express';
 import cors from 'cors';
-import { connDB }  from './db/db.js'
+import { connDB }  from './db/db.js';
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 // Routes
 import router from './routes/authRoutes.js'

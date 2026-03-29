@@ -1,5 +1,6 @@
 import {conn} from "../db/db.js";
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken';
 
 export const signUp = async ({name, email, password}) => {
     try { 
@@ -21,3 +22,24 @@ export const signUp = async ({name, email, password}) => {
         return {message : err.message}
     }
 } 
+
+export const login = async ({email, password}) => {
+    try {
+        const user = await conn.query(
+            `select * from users where email = $1`, [email]
+        )
+        if (user.rows.length == 0 ) { return {loggedIn : 0, message : "User does not exits"}}
+        else { 
+            const dbUser = user.rows[0];
+            const isMatch = await bcrypt.compare(password, dbUser.password);
+            if (isMatch) {
+                const jwtContent = {userId : dbUser.id, email: dbUser.email};
+                const jwtToken = await jwt.sign(jwtContent, process.env.JWT_SECRET);  
+                console.log(jwtToken)
+                return {loggedIn: 1, token : jwtToken}
+            }
+        }
+    }catch (err){
+        return {message : err.message}
+    }
+}
