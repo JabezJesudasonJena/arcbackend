@@ -1,14 +1,19 @@
-import {signUp} from "../controllers/authControl.js";
+import express from 'express';
 
 
-export const signUpRoute = async(req, res) => {
-    try {
-        const result = await signUp(req.body);
-        res.json(result); 
-    } catch(err) {
-        res.status(500).json({error : err.message, userCreated : 0});
-    }
-}
+//Routes
+import { signUpRoute } from '../controllers/authControl.js';
+
+
+const router = express.Router();
+
+router.post('/signup', signUpRoute)
 
 
 
+
+
+
+
+
+export default router;

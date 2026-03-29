@@ -3,7 +3,7 @@ import cors from 'cors';
 import { connDB }  from './db/db.js'
 
 // Routes
-import {signUpRoute} from './routes/authRoutes.js'
+import router from './routes/authRoutes.js'
 
 
 const app = express();
@@ -13,8 +13,7 @@ await connDB();
 
 app.use(cors());
 app.use(express.json());
-
-app.post('/api/signup', signUpRoute)
+app.use('/api/signs', router)
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');
