@@ -1,11 +1,11 @@
-import {conn} from "../db/db";
+import {conn} from "../db/db.js";
 import bcrypt from 'bcrypt';
 
-const signUp = async ({name, email, password}) => {
+export const signUp = async ({name, email, password}) => {
     const existingUser = await conn.query(`
-        select * from users where email = ${email};    
+        select * from users where email = '${email}';    
     `)
-    if(existingUser){
+    if(existingUser.length > 0) {
         return { message: "User already exists ", userCreated : 0};
     } else {
         const hashedPassword = await bcrypt.hash(password, 10)
@@ -15,7 +15,5 @@ const signUp = async ({name, email, password}) => {
         return {user : createUser, userCreated : 1};
     }
 }
-
-
 
 
