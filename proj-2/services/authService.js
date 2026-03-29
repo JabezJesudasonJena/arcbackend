@@ -37,9 +37,14 @@ export const login = async ({email, password}) => {
                 const jwtToken = await jwt.sign(jwtContent, process.env.JWT_SECRET);  
                 console.log(jwtToken)
                 return {loggedIn: 1, token : jwtToken}
+            } else {
+                return {loggedIn : 0, message : "Password is incorrect"}
             }
         }
     }catch (err){
         return {message : err.message}
     }
 }
+
+
+
