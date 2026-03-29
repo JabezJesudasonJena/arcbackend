@@ -1,12 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import bcrypt from 'bcrypt';
-import conn from './db/db'
+import { connDB }  from './db/db.js'
 
 
 const app = express();
 const PORT = 3000;
-await conn();
+await connDB();
 
 
 app.use(cors());
