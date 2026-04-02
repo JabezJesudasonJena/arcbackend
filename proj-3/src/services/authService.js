@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import { conn } from '../db/db.js';
 import jwt from 'jsonwebtoken';
 
-export const registerService = async ({name, email, password, role}) => {
+export const    registerService = async ({name, email, password, role}) => {
     try {
         const checkExistUser = await conn.query('select * from users where email = $1;', [email]);
         if(checkExistUser.rows.length > 0 ){return {signedUp:0, message: "User already exist"}};
