@@ -2,7 +2,6 @@ import express from 'express'
 import dotenv from 'dotenv';
 import { connDb } from './db/db.js';
 import router from './routes/authRoute.js';
-import userRoute from './services/userRoute.js';
 
 const app = express();
 
@@ -13,7 +12,6 @@ const PORT = process.env.PORT || 5000;
 // Middlewares
 app.use(express.json());
 app.use('/api',router);
-app.use('/api/role',userRoute)
 
 // Connection Database
 await connDb();
@@ -22,5 +20,5 @@ await connDb();
 app.get('/', (req ,res ) => {
     res.send("Hello World");
 })
-
-app.listen(PORT, () => {console.log(`Server has started http://localhost:${PORT}`)})
+    
+app.listen(PORT, () => console.log(`Server has started http://localhost:${PORT}`));
