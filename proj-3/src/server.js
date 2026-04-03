@@ -17,7 +17,7 @@ app.use('/role', userRoute);
 
 // Connection Database
 await connDb();
-
+//Middlwwares
 //routes
 app.get('/', (req ,res ) => {
     res.send("Hello World");
